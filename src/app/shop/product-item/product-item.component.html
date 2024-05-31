@@ -1,0 +1,16 @@
+<div class="card h-100 shadow-sm">
+  <img [src]="'http://localhost:8081'+ productList.pictureUrl">
+
+  <div class="card-body d-flex flex-column">
+    <a href="">
+      <h6 class="text-uppercase">{{productList.name}}</h6>
+    </a>
+
+    <span class="mb-2">{{productList.price | currency}}</span>
+
+    <div class="btn-group mt-auto">
+      <button class="btn btn-primary btn-sm fa fa-shopping-cart mr-2"></button>
+      <button class="btn btn-secondary btn-sm">Edit</button>
+    </div>
+  </div>
+</div>
