@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Product } from '../shared/models/product';
 import { ShopService } from '../services/shop.service';
 import { Brand } from '../shared/models/brand';
@@ -15,6 +15,16 @@ export class ShopComponent implements OnInit {
   brands!: any[]
   types!: any[]
 
+  selectedBrand: number | undefined
+  selectedType: number | undefined
+  selectedKeyword: string | undefined
+
+  pageNumber: number = 0;
+  pageSize: number = 6;
+  totalCount!:number;
+
+  @ViewChild("search") searchTerm!: ElementRef
+
   constructor(private shopService: ShopService){}
 
   ngOnInit(): void {
@@ -23,13 +33,28 @@ export class ShopComponent implements OnInit {
       this.getTypes();
   }
 
+  search(){
+    this.selectedKeyword = this.searchTerm.nativeElement.value;
+    this.getProductList()
+  }
+  onReset(){
+    this.searchTerm.nativeElement.value = undefined;
+    this.getProductList()
+  }
+
+  pageChanged(event:any){
+    this.pageNumber= event.page
+    this.getProductList()
+  }
+
   getProductList(){
-    this.shopService.getProducts().subscribe(
+    this.shopService.getProducts(this.selectedBrand,this.selectedType,this.selectedKeyword).subscribe(
       res => {
         console.log(res)
-        if(res && res.data && res.data.content){
           this.products = res.data.content
-        }
+          this.pageNumber = res.data.pageable.pageNumber
+          this.pageSize = res.data.pageable.pageSize
+          this.totalCount = res.data.pageable.totalElements
       },
       err => console.log(err)
     )
@@ -60,4 +85,18 @@ export class ShopComponent implements OnInit {
       }
   )
   }
+
+  selectedBrands(brandId?:number){
+    this.selectedBrand = brandId;
+    this.getProductList()
+  }
+
+  selectedTypes(typeId?:number){
+    this.selectedType = typeId;
+    this.getProductList();
+  }
+
+  
+
+  
 }

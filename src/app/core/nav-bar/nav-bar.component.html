@@ -1,8 +1,8 @@
 <header class="d-flex flex-row align-items-center justify-content-between p-3 px-4 mb-3 bg-white border-bottom shadow-sm fixed-top">
         <img src="/assets/images/logo.png" style="max-height: 70px;">
         <nav class="my-2 text-uppercase fs-4">
-          <a class="p-2 text-dark text-decoration-none" href="#">HOME</a>
-          <a class="p-2 text-dark text-decoration-none" href="#">SHOP</a>
+          <a class="p-2 text-dark text-decoration-none" [routerLinkActiveOptions]="{exact:true}" routerLink="/" routerLinkActive="active" >HOME</a>
+          <a class="p-2 text-dark text-decoration-none" routerLink="/shop" routerLinkActive="active">SHOP</a>
         </nav>
         
         <div class="d-flex align-items-center">

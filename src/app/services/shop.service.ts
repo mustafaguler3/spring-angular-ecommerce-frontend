@@ -1,7 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable} from '@angular/core';
 import { Product } from '../shared/models/product';
-import { Pagination } from '../shared/models/pagination';
 import { map, Observable } from 'rxjs';
 import { ApiResponse } from '../shared/models/apiresponse';
 import { Brand } from '../shared/models/brand';
@@ -16,7 +15,7 @@ export class ShopService {
 
   constructor(private http:HttpClient) { }
 
-  getProducts(keyword?:string,brandId?:number,typeId?:number){
+  getProducts(brandId?:number,typeId?:number,keyword?:string){
 
     let params = new HttpParams();
 
@@ -32,6 +31,7 @@ export class ShopService {
       params = params.append("typeId",typeId.toString())
     }
 
+  
     return this.http.get<ApiResponse<Product>>(this.baseApi+"/products",{params})
   }
 

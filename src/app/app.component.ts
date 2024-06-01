@@ -10,14 +10,7 @@ import { ShopService } from './services/shop.service';
 })
 export class AppComponent implements OnInit{
   
-  products!: Product[];
-
-  constructor(private shopService:ShopService){}
-
   ngOnInit(): void {
-      this.shopService.getProducts();
+      
   }
-
-  
-
 }
